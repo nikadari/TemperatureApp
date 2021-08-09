@@ -69,7 +69,7 @@ class TempState extends State<TempApp> {
       },
       //decoration is a property that display a label for the text field
       decoration: InputDecoration(
-        //label text will either be Fahrenheit or Celsius (temperature that user wants to convert from) 
+        //label text will either be Fahrenheit or Celsius (temperature that user wants to convert from)
         labelText:
             "${isF == true ? "Fahrenheit" : "Celsius"}", //shorthand: if isF is equal to true, the input is in F, else its in C
       ),
@@ -78,7 +78,8 @@ class TempState extends State<TempApp> {
 
     //Buttons to choose temperature conversion (keeping them inside a container)
     Container tempSwitch = Container(
-      padding: EdgeInsets.all(15.0), //padding applied around container for cleaner look
+      padding: EdgeInsets.all(
+          15.0), //padding applied around container for cleaner look
       child: Row(
         //children represents cells in a row, the property takes in a list of Widgets
         children: <Widget>[
@@ -99,10 +100,11 @@ class TempState extends State<TempApp> {
           //Selection button for C (false)
           Text("C"),
           Radio<bool>(
-              groupValue: isF, //This radio button is considered selected if [groupValue] matches the [value].
+              groupValue:
+                  isF, //This radio button is considered selected if [groupValue] matches the [value].
               value: false,
-               //if changed (i.e. deselected button), then isF is no longer false
-              onChanged: (newVal) { 
+              //if changed (i.e. deselected button), then isF is no longer false
+              onChanged: (newVal) {
                 //setState() notify's that state has changed
                 setState(() {
                   isF = newVal!; //assigns newVal (value = false!) to isF
@@ -117,7 +119,8 @@ class TempState extends State<TempApp> {
     //Scaffold class - holds all Widgets
     return Scaffold(
       appBar: appBar, //passes appBar Widget to property
-      body: Container( //Container will provide formatted padding for widgets being held
+      body: Container(
+        //Container will provide formatted padding for widgets being held
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[

@@ -33,6 +33,28 @@ class TempState extends State<TempApp> {
     isF = true;
   }
 
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PART FOUR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //Method determines which asset file to use on our screen
+  //Returns asset file path depending on temperature
+  String outputImageFile() {
+    //Check: if input is Fahrenheit then output is Celsius
+    if (isF == true) {
+      if (output <= 0) {
+        return 'assets/cold.png';
+      } else {
+        return 'assets/hot.png';
+      }
+    }
+    //Check: if input is Celsius then output is Fahrenheit
+    else {
+      if (output <= 32) {
+        return 'assets/cold.png';
+      } else {
+        return 'assets/hot.png';
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
@@ -90,6 +112,11 @@ class TempState extends State<TempApp> {
       ),
     );
 
+    //~~~~~~~~~~~~~~~~~~PART THREE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    //Using a Sized box to align our text to the left
+    //SizeBox allows the Text to fill up one row of the screen
+    //(otherwise text will be in the centre, cannot be left aligned)
     //~~~~~~~~~~~~~~~~~~ADDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //Using a Sized box to align our text to the left
@@ -104,17 +131,30 @@ class TempState extends State<TempApp> {
       ),
     );
 
+    //Output Text
     Text outputField = Text(
       "$output",
       style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, height: 2),
     );
 
-    //Calculate conversion
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~PART FOUR: Output Image~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //First, create assets folder with your images
+    //Second, import your assets in your pubspec.yaml file in the assets section (Add path name)
+    Container outputImage = Container(
+      padding: EdgeInsets.all(20.0),
+      child: Image.asset(
+        "${outputImageFile()}",
+        width: 100,
+        height: 100,
+      ),
+    );
+
+    //Calculate conversion (Calculate button)
     Container calcBtn = Container(
       child: ElevatedButton(
         child: Text("Calculate"),
+        //action that follows after button is pressed
         onPressed: () {
-          //action that follows pressing "Calculate"
           setState(() {
             isF == true
                 ? output = (input - 32) *
@@ -128,17 +168,23 @@ class TempState extends State<TempApp> {
 
     return Scaffold(
       appBar: appBar,
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            inputField,
-            tempSwitch,
-            //~~~~~~~~~~~~~~~~~ADDED~~~~~~~~~~~~~~~~~~~~
-            calcBtn,
-            outputTitle,
-            outputField,
-          ],
+      //ctrl+shift+R -> Wrap with Widget -> SingleChildScrollView (fix overflow)
+      body: SingleChildScrollView(
+        //ADDED
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            //when you pass the <Widget>[] you tell to compiler the input list type is Widget and all list child must be Widget not anything else
+            children: <Widget>[
+              inputField,
+              tempSwitch,
+              calcBtn,
+              ////~~~~~~~~~~~~~~~~~~~~~~~ADDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              outputTitle,
+              outputField,
+              outputImage,
+            ],
+          ),
         ),
       ),
     );

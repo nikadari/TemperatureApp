@@ -92,11 +92,9 @@ class TempState extends State<TempApp> {
           //Selection button for F (true)
           Text("F"),
           Radio<bool>(
-              groupValue:
-                  isF, //This radio button is considered selected if its [value] matches the [groupValue].
+              groupValue: isF,
               value: true,
               onChanged: (newVal) {
-                //using anonymous function v
                 setState(() {
                   isF = newVal!; //assigns newVal (value = true) to isF
                 });
